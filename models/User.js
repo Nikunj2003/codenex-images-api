@@ -93,8 +93,7 @@ const userSchema = new mongoose_1.Schema({
     }
 });
 // Indexes for performance
-userSchema.index({ auth0Id: 1 });
-userSchema.index({ email: 1 });
+// auth0Id and email indexes come from field definitions (unique/index true)
 userSchema.index({ createdAt: -1 });
 // Encrypt API key before saving
 userSchema.pre('save', async function (next) {

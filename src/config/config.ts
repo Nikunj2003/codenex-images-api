@@ -10,7 +10,11 @@ const configSchema = z.object({
   env: z.enum(['development', 'production', 'test']).default('development'),
   port: z.number().min(1).max(65535).default(3000),
   mongodb: z.object({
-    uri: z.string().url().optional(),
+    uri: z.string()
+      .optional()
+      .refine((val) => !val || /^mongodb(\+srv)?:\/\//.test(val), {
+        message: 'Invalid MongoDB connection string. It must start with mongodb:// or mongodb+srv://',
+      }),
   }),
   cors: z.object({
     origin: z.union([z.string(), z.array(z.string())]).default('http://localhost:8080'),

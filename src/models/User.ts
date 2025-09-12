@@ -58,8 +58,8 @@ const userSchema = new Schema<IUser>({
 });
 
 // Indexes for performance
-userSchema.index({ auth0Id: 1 });
-userSchema.index({ email: 1 });
+// Note: auth0Id and email already have indexes via the schema fields (index/unique).
+// Keep only non-duplicate compound/sort index below.
 userSchema.index({ createdAt: -1 });
 
 // Encrypt API key before saving

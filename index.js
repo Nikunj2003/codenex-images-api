@@ -20,21 +20,36 @@ app.use(cors({
 app.use(express.json({ limit: '50mb' }));
 
 // MongoDB connection
-const MONGODB_URI = '';
+// Read from environment (Vercel/production) or .env (local). Do NOT hardcode.
+const MONGODB_URI = (process.env.MONGODB_URI || '').trim();
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-})
-.then(() => {
-  console.log('✅ Connected to MongoDB Atlas');
-})
-.catch(err => {
-  console.error('❌ MongoDB connection error:', err);
-  console.log('❌ Server requires MongoDB connection. Please check your connection string and network.');
-  // Don't exit, let the server run but operations will fail
-});
+const isValidMongoUri = (uri) => /^mongodb(\+srv)?:\/\//.test(uri);
+
+if (!MONGODB_URI) {
+  console.error('❌ MONGODB_URI is not set. Please configure the environment variable.');
+}
+
+if (MONGODB_URI && !isValidMongoUri(MONGODB_URI)) {
+  console.error('❌ Invalid MONGODB_URI scheme. It must start with "mongodb://" or "mongodb+srv://"');
+}
+
+if (isValidMongoUri(MONGODB_URI)) {
+  mongoose.connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 5000,
+  })
+  .then(() => {
+    console.log('✅ Connected to MongoDB Atlas');
+  })
+  .catch(err => {
+    console.error('❌ MongoDB connection error:', err);
+    console.log('❌ Server requires MongoDB connection. Please check your connection string and network.');
+    // Don't exit, let the server run but operations will fail
+  });
+} else {
+  console.warn('⚠️ Skipping MongoDB connection due to missing/invalid MONGODB_URI');
+}
 
 // Routes
 
