@@ -13,7 +13,7 @@
 
 Production (Vercel): https://your-api-domain.vercel.app
 
-> Paired frontend: Codenex Images UI — https://github.com/your-org/codenex-images-ui (replace with your actual repo link)
+> Paired frontend: Codenex Images UI — [https://github.com/Nikunj2003/codenex-images-ui](https://github.com/Nikunj2003/codenex-images-ui)
 
 ## overview
 An Express + TypeScript API for AI-powered image generation and editing using Google Gemini (NanoBanana). Includes optional Auth0-protected routes, Cloudinary integration, MongoDB persistence, Swagger docs, rate limiting, caching, logging, and scheduled cron jobs.
