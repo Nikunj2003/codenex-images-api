@@ -1,5 +1,7 @@
 import winston from 'winston';
 import config from '../config/config';
+import path from 'path';
+import fs from 'fs';
 
 const levels = {
   error: 0,
@@ -37,14 +39,29 @@ const format = winston.format.combine(
   ),
 );
 
-const transports = [
+// Detect serverless environments where local FS is read-only (except /tmp)
+const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+
+const transports: winston.transport[] = [
   new winston.transports.Console(),
-  new winston.transports.File({
-    filename: 'logs/error.log',
-    level: 'error',
-  }),
-  new winston.transports.File({ filename: 'logs/all.log' }),
 ];
+
+if (!isServerless) {
+  // Use project logs dir for local/dev or traditional servers
+  const logDir = path.join(process.cwd(), 'logs');
+  try {
+    if (!fs.existsSync(logDir)) {
+      fs.mkdirSync(logDir, { recursive: true });
+    }
+  } catch {
+    // Fallback to console-only if we cannot create the directory
+  }
+
+  transports.push(
+    new winston.transports.File({ filename: path.join(logDir, 'error.log'), level: 'error' }),
+    new winston.transports.File({ filename: path.join(logDir, 'all.log') }),
+  );
+}
 
 const logger = winston.createLogger({
   level: level(),
