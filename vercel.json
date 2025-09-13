@@ -2,6 +2,10 @@
   "version": 2,
   "routes": [
   { "src": "^/$", "dest": "/api" },
-    { "src": "/api/(.*)", "dest": "/api/$1" }
+  { "src": "^/api/health$", "dest": "/api/health" },
+  { "src": "^/api/docs.json$", "dest": "/api/docs.json" },
+  { "src": "^/api/docs$", "dest": "/api/docs" },
+  { "src": "/api/(.*)", "dest": "/api/$1" }
   ]
 }
+    

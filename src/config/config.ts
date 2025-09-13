@@ -25,7 +25,7 @@ const configSchema = z.object({
     max: z.number().default(100), // limit each IP to 100 requests per windowMs
   }),
   gemini: z.object({
-    apiKey: z.string().min(1),
+  apiKey: z.string().optional().default(''),
     model: z.string().default('gemini-2.5-flash-image-preview'),
     maxRetries: z.number().default(3),
     timeout: z.number().default(30000),

@@ -19,6 +19,9 @@ export const connectDB = async (): Promise<void> => {
       dbName: 'codenex-images',
       retryWrites: true,
       w: 'majority',
+      // Fail fast in serverless to avoid function timeouts when DB is unreachable
+      serverSelectionTimeoutMS: 5000,
+      connectTimeoutMS: 5000,
     });
 
     isConnected = true;
@@ -44,9 +47,10 @@ export const connectDB = async (): Promise<void> => {
   } catch (error) {
     logger.error('MongoDB connection failed:', error);
     isConnected = false;
-    
-    // Retry connection after 5 seconds
-    if (config.env !== 'test') {
+
+    // Avoid scheduling retries in serverless environments to prevent hanging invocations
+    const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+    if (!isServerless && config.env !== 'test') {
       logger.info('Retrying MongoDB connection in 5 seconds...');
       setTimeout(connectDB, 5000);
     }
