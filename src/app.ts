@@ -17,6 +17,9 @@ import { swaggerSpec } from './config/swagger';
 
 const app: Application = express();
 
+// Behind Vercel/Proxies, trust x-forwarded-* headers
+app.set('trust proxy', true);
+
 // Security middleware
 app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
