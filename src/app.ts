@@ -91,7 +91,7 @@ app.get('/api/docs.json', (_req, res) => {
 
 /**
  * @swagger
- * /health:
+ * /api/health:
  *   get:
  *     summary: Health check endpoint
  *     tags: [Health]
@@ -114,7 +114,7 @@ app.get('/api/docs.json', (_req, res) => {
  *                   type: string
  *                   format: date-time
  */
-app.get('/health', (_req, res) => {
+app.get('/api/health', (_req, res) => {
   res.json({
     status: 'healthy',
     environment: config.env,

@@ -23,7 +23,7 @@ An Express + TypeScript API for AI-powered image generation and editing using Go
 - Optional JWT authentication with Auth0
 - Cloudinary upload/management helpers
 - MongoDB/Mongoose models and scripts
-- Swagger UI at /api/docs and health check at /health
+- Swagger UI at /api/docs and health check at /api/health
 - Rate limiting, Helmet, CORS, and request logging
 - Cron job to reset daily usage limits
 
@@ -65,7 +65,7 @@ npm install
 npm run dev
 ```
 - Swagger UI: http://localhost:3000/api/docs
-- Health check: http://localhost:3000/health
+- Health check: http://localhost:3000/api/health
 
 ## build and start
 ```bash
