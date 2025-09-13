@@ -6,6 +6,7 @@ import rateLimit from 'express-rate-limit';
 import swaggerUi from 'swagger-ui-express';
 
 import config from './config/config';
+import { version } from '../package.json';
 import userRoutes from './routes/userRoutes';
 import generationRoutes from './routes/generationRoutes';
 import cronRoutes from './routes/cronRoutes';
@@ -87,6 +88,11 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 app.get('/api/docs.json', (_req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.send(swaggerSpec);
+});
+
+// Root endpoint
+app.get('/', (_req, res) => {
+  res.json({ success: true, version, name: 'codenex-images-api' });
 });
 
 /**
