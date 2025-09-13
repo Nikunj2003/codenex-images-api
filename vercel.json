@@ -5,7 +5,10 @@
   { "src": "^/api/health$", "dest": "/api/health" },
   { "src": "^/api/docs.json$", "dest": "/api/docs.json" },
   { "src": "^/api/docs$", "dest": "/api/docs" },
+  { "src": "^/api/swagger-ui.css$", "dest": "/api/docs" },
+  { "src": "^/api/swagger-ui-bundle.js$", "dest": "/api/docs" },
+  { "src": "^/api/swagger-ui-standalone-preset.js$", "dest": "/api/docs" },
+  { "src": "^/api/swagger-ui-init.js$", "dest": "/api/docs" },
   { "src": "/api/(.*)", "dest": "/api/$1" }
   ]
 }
-    
