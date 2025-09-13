@@ -1,5 +1,8 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import path from 'path';
 import { version } from '../../package.json';
+
+const isServerless = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -314,7 +317,21 @@ const options: swaggerJsdoc.Options = {
       }
     ]
   },
-  apis: ['./src/routes/*.ts', './src/app.ts'], // Path to the API routes
+  // In serverless (Vercel), avoid scanning source files to reduce cold start and prevent file resolution issues
+  apis: isServerless
+    ? []
+    : [
+        path.join(process.cwd(), 'src', 'routes', '*.ts'),
+        path.join(process.cwd(), 'src', 'app.ts'),
+      ],
 };
 
-export const swaggerSpec = swaggerJsdoc(options);
+let swaggerSpec: ReturnType<typeof swaggerJsdoc>;
+try {
+  swaggerSpec = swaggerJsdoc(options);
+} catch (_err) {
+  // Fallback to definition-only spec
+  swaggerSpec = swaggerJsdoc({ ...options, apis: [] });
+}
+
+export { swaggerSpec };
