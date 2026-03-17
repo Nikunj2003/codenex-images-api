@@ -42,7 +42,7 @@ const options: swaggerJsdoc.Options = {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
-          description: '**JWT Authentication Required**\n\n⚠️ **How to get your JWT token:**\n\n1. **Login** to the application at http://localhost:5174\n2. Open browser **DevTools** (F12)\n3. Go to **Application** tab > **Local Storage**\n4. Find the key starting with `@@auth0spajs@@`\n5. Expand it and copy the **access_token** value\n6. Click the **Authorize** button above\n7. Paste the token (without "Bearer " prefix)\n\n✅ Token will persist across page refreshes'
+          description: '**JWT Authentication Required**\n\n⚠️ **How to get your JWT token:**\n\n1. **Login** to the application at http://localhost:8080\n2. Open browser **DevTools** (F12)\n3. Go to **Application** tab > **Local Storage**\n4. Find the key starting with `@@auth0spajs@@`\n5. Expand it and copy the **access_token** value\n6. Click the **Authorize** button above\n7. Paste the token (without "Bearer " prefix)\n\n✅ Token will persist across page refreshes'
         }
       },
       schemas: {

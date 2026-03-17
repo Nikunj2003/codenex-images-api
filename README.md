@@ -67,13 +67,24 @@ npm run dev
 ```
 Swagger UI: http://localhost:3000/api/docs
 
-Health check: http://localhost:3000/health
+Health check: http://localhost:3000/api/health
 
 ## Build and start (non-serverless runtime)
 ```bash
 npm run build
 npm start
 ```
+
+## Docker
+A `Dockerfile` and `docker-compose.yml` are included for containerized local runs.
+
+Run the API with MongoDB from this repo:
+
+```bash
+docker compose up --build
+```
+
+For the full stack, use the umbrella repo root compose setup.
 
 ## Deployment (Vercel)
 - This repo includes `vercel.json` and a serverless entry at `api/[...all].ts`.

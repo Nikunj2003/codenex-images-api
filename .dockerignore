@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+logs
+.git
+.github
+.vercel
+.env
+.env.*
+!.env.example
+npm-debug.log*
+Dockerfile
